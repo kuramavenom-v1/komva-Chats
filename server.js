@@ -12,6 +12,10 @@ const app = express();
 app.use(cors()); // للسماح للفرونت اند بالاتصال بالسيرفر دون مشاكل CORS
 app.use(express.json()); // لقراءة البيانات القادمة بصيغة JSON في الـ APIs
 
+// استدعاء مسارات نظام الحسابات (Auth)
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
+
 // إنشاء خادم HTTP مدمج مع Express
 const server = http.createServer(app);
 
@@ -26,7 +30,7 @@ const io = new Server(server, {
 // 🌐 الاتصال بقاعدة بيانات MongoDB
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/komva_chats";
 mongoose.connect(MONGO_URI)
-.then(() => console.log("✅ متصل بنجاح بقاعدة بيانات MongoDB"))
+.then(() => console.log("متصل بنجاح بقاعدة بيانات MongoDB"))
 .catch(err => console.error("فشل الاتصال بقاعدة البيانات:", err));
 
 // 🚪 نقطة فحص أساسية للسيرفر (REST API Test)
@@ -66,6 +70,5 @@ io.on('connection', (socket) => {
 // ⚡ تشغيل السيرفر على منفذ (Port) محدد ليبقى مستمعاً دائماً
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-    console.log(` السيرفر يعمل و يستجيب دائماً على المنفذ: http://localhost:${PORT}`);
+    console.log(`السيرفر يعمل و يستجيب دائماً على المنفذ: http://localhost:${PORT}`);
 });
-
