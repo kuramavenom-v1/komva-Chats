@@ -16,16 +16,12 @@
       "dest": "/public/js/$1"
     },
     {
-      "src": "/chats",
-      "dest": "/public/index.html"
-    },
-    {
       "src": "/api/(.*)",
       "dest": "server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/public/login.html"
+      "dest": "/public/$1"
     }
   ]
 }

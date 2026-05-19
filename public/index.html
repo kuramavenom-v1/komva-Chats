@@ -2,84 +2,141 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Komva Chats</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="light-mode">
-
-    <div class="mobile-container">
+    <style>
+        :root {
+            --whatsapp-green: #008069;
+            --whatsapp-teal: #128c7e;
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --gray-text: #667781;
+            --active-tab: #ffffff;
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; background-color: #f0f2f5; color: var(--text-color); }
         
-        <header class="app-header">
-            <div class="header-top">
-                <h1 class="brand-name">Komva Chats</h1>
-                <div class="header-actions">
-                    <button id="theme-toggle" class="icon-btn"><i class="fas fa-moon"></i></button>
-                    <button id="search-btn" class="icon-btn"><i class="fas fa-search"></i></button>
-                </div>
-            </div>
-            
-            <div class="app-tabs">
-                <div class="tab active" data-tab="chats">المحادثات</div>
-                <div class="tab" data-tab="groups">المجموعات</div>
-                <div class="tab" data-tab="contacts">جهات الاتصال</div>
-            </div>
-        </header>
+        /* الهيدر الرئيسي */
+        .header { background-color: var(--whatsapp-green); color: white; padding: 15px 15px 0 15px; position: sticky; top: 0; z-index: 100; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .header-top h1 { margin: 0; font-size: 22px; font-weight: bold; }
+        .header-icons { display: flex; gap: 20px; }
+        
+        /* التابات (الأزرار الرئيسية للتنقل) */
+        .tabs { display: flex; justify-content: space-around; text-align: center; }
+        .tab-btn { color: rgba(255, 255, 255, 0.7); padding: 12px 0; width: 33%; font-size: 16px; font-weight: bold; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.3s; }
+        .tab-btn.active { color: var(--active-tab); border-bottom: 3px solid var(--active-tab); }
+        
+        /* الحاويات الرئيسية للمحتوى */
+        .content-section { display: none; padding: 10px 0; background: var(--bg-color); min-height: calc(100vh - 110px); }
+        .content-section.active { display: block; }
+        
+        /* تصميم قائمة المحادثات، الحالات والقنوات */
+        .item-row { display: flex; align-items: center; padding: 12px 15px; border-bottom: 1px solid #f0f2f5; cursor: pointer; }
+        .item-row:hover { background-color: #f5f6f6; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background-color: #ccc; margin-left: 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 18px; }
+        .item-details { flex-grow: 1; }
+        .item-title-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .item-title { font-weight: bold; font-size: 16px; }
+        .item-time { font-size: 12px; color: var(--gray-text); }
+        .item-sub { font-size: 14px; color: var(--gray-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px; }
+        
+        /* زر عائم للإجراءات السريعة */
+        .fab { position: fixed; bottom: 20px; left: 20px; background-color: var(--whatsapp-teal); color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: pointer; }
+    </style>
+</head>
+<body>
 
-        <main class="app-content">
-            <div id="list-container" class="list-container">
-                <div class="list-item group-item">
-                    <div class="item-avatar"><i class="fas fa-users"></i></div>
-                    <div class="item-details">
-                        <div class="item-header">
-                            <span class="item-name">مجموعة الأكاتسكي (عامة)</span>
-                            <span class="item-time">10:30 م</span>
-                        </div>
-                        <p class="item-last-msg">إيتاتشي: تم تجهيز السيرفر...</p>
-                    </div>
-                </div>
+    <div class="header">
+        <div class="header-top">
+            <h1>Komva Chats</h1>
+            <div class="header-icons">
+                <span style="cursor:pointer;" onclick="alert('البحث قيد التطوير')">🔍</span>
+                <span style="cursor:pointer;" onclick="alert('الإعدادات قيد التطوير')">⋮</span>
             </div>
-        </main>
-
-        <div id="chat-screen" class="chat-screen hidden">
-            <header class="chat-header">
-                <button id="back-btn" class="icon-btn"><i class="fas fa-arrow-right"></i></button>
-                <div class="chat-title-info">
-                    <span id="chat-current-name">اسم المجموعة</span>
-                    <span id="chat-status" class="chat-status">متصل</span>
-                </div>
-                <button id="group-settings-btn" class="icon-btn"><i class="fas fa-ellipsis-v"></i></button>
-            </header>
-
-            <div id="messages-area" class="messages-area">
-                <div class="message received">
-                    <p class="msg-author">أدمن</p>
-                    <p class="msg-text">أهلاً بكم في Komva Chats!</p>
-                </div>
-            </div>
-
-            <div id="stickers-panel" class="stickers-panel hidden">
-                <div class="stickers-grid">
-                    <span class="sticker-item">🔥</span>
-                    <span class="sticker-item">🎯</span>
-                    <span class="sticker-item">👑</span>
-                    <span class="sticker-item">🐺</span>
-                    <span class="sticker-item">🌙</span>
-                    <span class="sticker-item">👁️</span>
-                </div>
-            </div>
-
-            <footer class="chat-footer">
-                <button id="sticker-toggle-btn" class="icon-btn"><i class="far fa-laugh"></i></button>
-                <input type="text" id="message-input" placeholder="اكتب رسالة..." autocomplete="off">
-                <button id="send-btn" class="icon-btn send-btn"><i class="fas fa-paper-plane"></i></button>
-            </footer>
         </div>
-
+        <div class="tabs">
+            <div class="tab-btn active" onclick="switchTab('chats-section', this)">المحادثات</div>
+            <div class="tab-btn" onclick="switchTab('status-section', this)">الحالات</div>
+            <div class="tab-btn" onclick="switchTab('channels-section', this)">القنوات</div>
+        </div>
     </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="app.js"></script>
+    <div id="chats-section" class="content-section active">
+        <div class="item-row" onclick="alert('فتح غرف الشات قيد الربط مع الباك اند')">
+            <div class="avatar" style="background-color: #007bff;">K</div>
+            <div class="item-details">
+                <div class="item-title-row">
+                    <span class="item-title">مجموعة الدعم الفني</span>
+                    <span class="item-time">10:30 م</span>
+                </div>
+                <div class="item-sub">أهلاً بك في منصة Komva Chats الرسمية...</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="status-section" class="content-section">
+        <div class="item-row" onclick="alert('إضافة حالة جديدة قيد التطوير')">
+            <div class="avatar" style="background-color: #6c757d;">+</div>
+            <div class="item-details">
+                <div class="item-title">حالتك</div>
+                <div class="item-sub">إضافة تحديث إلى حالتي</div>
+            </div>
+        </div>
+        <div style="padding: 10px 15px; font-size: 14px; color: var(--whatsapp-green); font-weight: bold; background: #f8f9fa;">التحديثات الأخيرة</div>
+        <div class="item-row" onclick="alert('عرض الحالة')">
+            <div class="avatar" style="background-color: #28a745; border: 2px solid var(--whatsapp-green);">M</div>
+            <div class="item-details">
+                <div class="item-title">المطور محمود</div>
+                <div class="item-sub">منذ ساعة</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="channels-section" class="content-section">
+        <div style="padding: 15px; font-size: 14px; color: var(--gray-text);">ابقَ على اطلاع دائم بالمواضيع التي تهمك عبر القنوات.</div>
+        <div class="item-row" onclick="alert('متابعة القناة')">
+            <div class="avatar" style="background-color: #dc3545;">V</div>
+            <div class="item-details">
+                <div class="item-title-row">
+                    <span class="item-title">قناة Venom الرسمية</span>
+                    <span class="item-time">أمس</span>
+                </div>
+                <div class="item-sub">تم إطلاق خوادم الباك اند بنجاح التام اليوم...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fab" id="main-fab" onclick="handleFabAction()">💬</div>
+
+    <script>
+        function switchTab(sectionId, element) {
+            // إخفاء كل الأقسام
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // إزالة التنشيط من كل الأزرار
+            document.querySelectorAll('.tab-btn').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // تفعيل القسم والزر المختار
+            document.getElementById(sectionId).classList.add('active');
+            element.classList.add('active');
+
+            // تغيير شكل الأيقونة الفلوتنج بناءً على القسم
+            const fab = document.getElementById('main-fab');
+            if (sectionId === 'chats-section') {
+                fab.innerText = '💬';
+            } else if (sectionId === 'status-section') {
+                fab.innerText = '📷';
+            } else if (sectionId === 'channels-section') {
+                fab.innerText = '📣';
+            }
+        }
+
+        function handleFabAction() {
+            alert('هذا الإجراء سيتم ربطه بقاعدة البيانات قريباً لإضافة محتوى جديد فعلي!');
+        }
+    </script>
 </body>
 </html>
