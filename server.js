@@ -10,7 +10,8 @@ const app = express();
 
 // إعدادات الـ Middleware
 app.use(cors()); // للسماح للفرونت اند بالاتصال بالسيرفر دون مشاكل CORS
-app.use(express.json()); // لقراءة البيانات القادمة بصيغة JSON في الـ APIs
+app.use(express.json());
+app.use(express.static('public')); // لقراءة البيانات القادمة بصيغة JSON في الـ APIs
 
 // استدعاء مسارات نظام الحسابات (Auth)
 const authRoutes = require('./routes/authRoutes');

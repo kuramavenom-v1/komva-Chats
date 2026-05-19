@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Komva Chats</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="light-mode">
+
+    <div class="mobile-container">
+        
+        <header class="app-header">
+            <div class="header-top">
+                <h1 class="brand-name">Komva Chats</h1>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="icon-btn"><i class="fas fa-moon"></i></button>
+                    <button id="search-btn" class="icon-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            
+            <div class="app-tabs">
+                <div class="tab active" data-tab="chats">المحادثات</div>
+                <div class="tab" data-tab="groups">المجموعات</div>
+                <div class="tab" data-tab="contacts">جهات الاتصال</div>
+            </div>
+        </header>
+
+        <main class="app-content">
+            <div id="list-container" class="list-container">
+                <div class="list-item group-item">
+                    <div class="item-avatar"><i class="fas fa-users"></i></div>
+                    <div class="item-details">
+                        <div class="item-header">
+                            <span class="item-name">مجموعة الأكاتسكي (عامة)</span>
+                            <span class="item-time">10:30 م</span>
+                        </div>
+                        <p class="item-last-msg">إيتاتشي: تم تجهيز السيرفر...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div id="chat-screen" class="chat-screen hidden">
+            <header class="chat-header">
+                <button id="back-btn" class="icon-btn"><i class="fas fa-arrow-right"></i></button>
+                <div class="chat-title-info">
+                    <span id="chat-current-name">اسم المجموعة</span>
+                    <span id="chat-status" class="chat-status">متصل</span>
+                </div>
+                <button id="group-settings-btn" class="icon-btn"><i class="fas fa-ellipsis-v"></i></button>
+            </header>
+
+            <div id="messages-area" class="messages-area">
+                <div class="message received">
+                    <p class="msg-author">أدمن</p>
+                    <p class="msg-text">أهلاً بكم في Komva Chats!</p>
+                </div>
+            </div>
+
+            <div id="stickers-panel" class="stickers-panel hidden">
+                <div class="stickers-grid">
+                    <span class="sticker-item">🔥</span>
+                    <span class="sticker-item">🎯</span>
+                    <span class="sticker-item">👑</span>
+                    <span class="sticker-item">🐺</span>
+                    <span class="sticker-item">🌙</span>
+                    <span class="sticker-item">👁️</span>
+                </div>
+            </div>
+
+            <footer class="chat-footer">
+                <button id="sticker-toggle-btn" class="icon-btn"><i class="far fa-laugh"></i></button>
+                <input type="text" id="message-input" placeholder="اكتب رسالة..." autocomplete="off">
+                <button id="send-btn" class="icon-btn send-btn"><i class="fas fa-paper-plane"></i></button>
+            </footer>
+        </div>
+
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
